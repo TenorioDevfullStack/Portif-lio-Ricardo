@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio | Ricardo Tenório - Dados e BI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0f1c;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --text: #e6ecff;
+      --muted: #9fb2d1;
+      --accent: #22d3ee;
+      --accent-2: #f59e0b;
+      --border-strong: rgba(34, 211, 238, 0.35);
+      --border: rgba(255, 255, 255, 0.07);
+      --shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+      --glow: 0 0 35px rgba(34, 211, 238, 0.25);
+      --surface-strong: rgba(255, 255, 255, 0.08);
+      --surface-soft: rgba(255, 255, 255, 0.03);
+    }
+    html { scroll-behavior: smooth; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", "Sora", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.12), transparent 28%),
+                  radial-gradient(circle at 80% 10%, rgba(245, 158, 11, 0.1), transparent 25%),
+                  radial-gradient(circle at 60% 70%, rgba(34, 211, 238, 0.1), transparent 40%),
+                  var(--bg);
+      min-height: 100vh;
+      padding: 32px;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+    .page::before, .page::after {
+      content: "";
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.35;
+      z-index: -1;
+    }
+    .page::before {
+      background: rgba(34, 211, 238, 0.25);
+      top: 8%;
+      left: 8%;
+    }
+    .page::after {
+      background: rgba(245, 158, 11, 0.18);
+      bottom: 12%;
+      right: 6%;
+    }
+    .page {
+      width: min(1200px, 100%);
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      background: rgba(8, 12, 24, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 16px;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+      color: var(--text);
+    }
+    .brand .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #0ea5e9);
+      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.15);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      transition: color 140ms ease, border 140ms ease, background 140ms ease, transform 140ms ease;
+    }
+    .nav-links a:hover {
+      color: var(--text);
+      background: rgba(34, 211, 238, 0.1);
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+    .nav-links .pill-link {
+      background: linear-gradient(135deg, var(--accent), #0ea5e9);
+      color: #021018;
+      border: none;
+      box-shadow: 0 10px 30px rgba(34, 211, 238, 0.25);
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .hero {
+      padding: 32px;
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.22), rgba(10, 15, 28, 0.92));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow), var(--glow);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+      backdrop-filter: blur(2px);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 12px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    .hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(34, 211, 238, 0.1);
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 42px);
+      letter-spacing: -0.5px;
+    }
+    .name-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px;
+      border-radius: 14px;
+      background: linear-gradient(120deg, rgba(34, 211, 238, 0.32), rgba(245, 158, 11, 0.24));
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--glow);
+    }
+    .name-highlight strong {
+      letter-spacing: -0.3px;
+      font-weight: 700;
+    }
+    .spark {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: var(--glow);
+      animation: pulse 2.6s ease-in-out infinite;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 14px;
+    }
+    .status .ping {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.5);
+      animation: ping 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    .tagline {
+      margin: 0 0 16px;
+      font-size: 18px;
+      color: var(--muted);
+    }
+    .hero-sub {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 18px 0 6px;
+    }
+    .hero-card {
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 15px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .hero-card span {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 13px;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0 16px;
+    }
+    .chip {
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 13px;
+      letter-spacing: 0.2px;
+      transition: transform 120ms ease, border 120ms ease, background 120ms ease;
+    }
+    .chip:hover {
+      transform: translateY(-2px);
+      background: rgba(34, 211, 238, 0.14);
+      border-color: var(--border-strong);
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+      box-shadow: var(--shadow);
+    }
+    .btn.accent {
+      background: linear-gradient(135deg, var(--accent), #0ea5e9);
+      color: #021018;
+      border: none;
+      box-shadow: 0 10px 30px rgba(34, 211, 238, 0.35);
+    }
+    .btn:hover { transform: translateY(-2px) scale(1.01); }
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin-bottom: 26px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform 170ms ease, border 170ms ease, background 170ms ease;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-strong);
+      background: linear-gradient(145deg, rgba(34, 211, 238, 0.08), rgba(255, 255, 255, 0.02));
+    }
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+    .card p {
+      margin: 6px 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      margin: 6px 6px 0 0;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text);
+      transition: transform 120ms ease, border 120ms ease, background 120ms ease;
+    }
+    .pill:hover {
+      transform: translateY(-2px);
+      background: rgba(34, 211, 238, 0.1);
+      border-color: var(--border-strong);
+    }
+    .cert-link {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(34, 211, 238, 0.12);
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid rgba(34, 211, 238, 0.4);
+      font-weight: 600;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+      box-shadow: 0 8px 22px rgba(34, 211, 238, 0.18);
+    }
+    .cert-link:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(34, 211, 238, 0.26); }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .metric {
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      text-align: left;
+    }
+    .metric strong {
+      display: block;
+      font-size: 22px;
+      color: var(--accent);
+      letter-spacing: -0.2px;
+    }
+    .timeline {
+      border-left: 2px solid rgba(255, 255, 255, 0.08);
+      padding-left: 14px;
+    }
+    .timeline-item {
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -21px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-2);
+      background: var(--bg);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+    }
+    .footnote {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 220ms ease, transform 220ms ease;
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes ping {
+      0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.6); }
+      70% { box-shadow: 0 0 0 12px rgba(34, 211, 238, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0); }
+    }
+    .projects {
+      margin: 32px 0 10px;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      font-size: 20px;
+    }
+    .section-title .marker {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: var(--glow);
+    }
+    .project-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    .project-card {
+      position: relative;
+      padding: 16px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(34, 211, 238, 0.08), rgba(10, 15, 28, 0.9));
+      box-shadow: var(--shadow);
+      transition: transform 180ms ease, border 180ms ease, box-shadow 180ms ease;
+      isolation: isolate;
+    }
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.16), transparent 40%);
+      opacity: 0.8;
+      z-index: 0;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-strong);
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.4);
+    }
+    .project-card h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+      position: relative;
+      z-index: 1;
+    }
+    .project-card p {
+      margin: 8px 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .project-tags .tag {
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--text);
+      font-size: 12px;
+      letter-spacing: 0.2px;
+    }
+    .project-cta {
+      margin-top: 12px;
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 140ms ease;
+    }
+    .project-cta:hover { transform: translateX(2px); }
+    .contact {
+      margin: 28px 0 0;
+      padding: 22px;
+      border-radius: 16px;
+      border: 1px solid var(--border-strong);
+      background: linear-gradient(135deg, rgba(34, 211, 238, 0.14), rgba(10, 15, 28, 0.9));
+      box-shadow: var(--shadow), var(--glow);
+    }
+    .contact h3 { margin: 0 0 8px; }
+    .contact p { margin: 6px 0 12px; color: var(--muted); }
+    .contact .cta-row { margin-top: 8px; }
+    .footer {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+    @media (max-width: 820px) {
+      body { padding: 22px 18px; }
+      header { grid-template-columns: 1fr; }
+      .name-highlight { width: 100%; }
+      .topbar { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="topbar">
+      <div class="brand"><span class="dot"></span>Ricardo Tenório</div>
+      <div class="nav-links">
+        <a href="#inicio">Início</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#certificacoes">Certificações</a>
+        <a href="#contato" class="pill-link">Contato</a>
+      </div>
+    </nav>
+    <header id="inicio">
+      <div class="hero">
+        <div class="status">
+          <span class="ping"></span>
+          Disponível para projetos de BI e treinamento
+        </div>
+        <h1><span class="name-highlight"><span class="spark"></span><strong>Ricardo Tenório</strong></span> | Analista de Dados &amp; BI</h1>
+        <p class="tagline">
+          Especialista em transformar dados em decisões práticas com SQL, Excel avançado e dashboards em Power BI.
+        </p>
+        <div class="hero-sub">
+          <div class="hero-card">+5 anos em dados <span>BI, análise e automação</span></div>
+          <div class="hero-card">Dashboards de negócio <span>Power BI com storytelling</span></div>
+          <div class="hero-card">Operação enxuta <span>Rituais curtos e documentação clara</span></div>
+        </div>
+        <div class="chips">
+          <span class="chip">SQL para análise e automação</span>
+          <span class="chip">Excel Avançado (modelagem e macros)</span>
+          <span class="chip">Power BI Avançado (DAX &amp; storytelling)</span>
+          <span class="chip">Processos orientados a valor</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn accent" href="mailto:seuemail@exemplo.com">Vamos conversar</a>
+          <a class="btn" href="#certificacoes">Ver certificações</a>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Perfil rápido</h3>
+          <p>Atuação focada em BI e produtividade, conectando dados a decisões e comunicação clara com gestores.</p>
+          <div class="metrics">
+            <div class="metric">
+              <strong>SQL</strong>
+              Consultas otimizadas, modelagem e rotinas automatizadas.
+            </div>
+            <div class="metric">
+              <strong>Excel+</strong>
+              Dashboards, Power Query, tabelas dinâmicas, macros.
+            </div>
+            <div class="metric">
+              <strong>Power BI</strong>
+              Modelos em camadas, DAX avançado e visualizações orientadas a negócio.
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Como posso contribuir</h3>
+          <p>
+            Estruturo dados, desenho indicadores e traduzo resultados em histórias visuais para acelerar decisões.
+            Trabalho em ciclos curtos, alinhando expectativas cedo e documentando entregas.
+          </p>
+          <div class="timeline">
+            <div class="timeline-item">
+              <strong>Diagnóstico</strong>
+              <p>Mapeio fontes, defino indicadores e critérios de sucesso.</p>
+            </div>
+            <div class="timeline-item">
+              <strong>Modelagem e limpeza</strong>
+              <p>SQL e Power Query para garantir dados confiáveis.</p>
+            </div>
+            <div class="timeline-item">
+              <strong>História visual</strong>
+              <p>Dashboards Power BI focados em ação, com DAX claro e documentado.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="projetos" class="projects">
+      <div class="section-title"><span class="marker"></span>Projetos em destaque</div>
+      <div class="project-grid">
+        <div class="project-card">
+          <h3>Painel Executivo de Vendas</h3>
+          <p>Dashboard em Power BI com camadas de DAX, margem por região e alertas visuais para acompanhar metas semanais.</p>
+          <div class="project-tags">
+            <span class="tag">Power BI</span><span class="tag">DAX avançado</span><span class="tag">Storytelling</span>
+          </div>
+          <a class="project-cta" href="#contato">Ver como aplico no seu negócio →</a>
+        </div>
+        <div class="project-card">
+          <h3>Data Quality com SQL</h3>
+          <p>Rotinas SQL para saneamento, checagem de duplicidades e reconciliação, entregando tabelas prontas para BI.</p>
+          <div class="project-tags">
+            <span class="tag">SQL</span><span class="tag">ETL leve</span><span class="tag">Monitoração</span>
+          </div>
+          <a class="project-cta" href="#contato">Solicitar revisão de dados →</a>
+        </div>
+        <div class="project-card">
+          <h3>Excel Evolution</h3>
+          <p>Modelos de Excel avançado com Power Query, macros e dashboards rápidos para equipes comerciais.</p>
+          <div class="project-tags">
+            <span class="tag">Excel avançado</span><span class="tag">Power Query</span><span class="tag">Produtividade</span>
+          </div>
+          <a class="project-cta" href="#contato">Pedir demonstração →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="certificacoes" class="grid">
+      <div class="card">
+        <h3>Certificado de SQL</h3>
+        <p>Base sólida em consultas, joins, agregações e rotinas para análise e automação.</p>
+        <a class="cert-link" href="Certificadi%20SQL.pdf" target="_blank" rel="noopener">Abrir certificado</a>
+      </div>
+      <div class="card">
+        <h3>Excel Evolution - Avançado</h3>
+        <p>Excel avançado aplicado a negócios: modelagem, Power Query, dashboards e produtividade.</p>
+        <a class="cert-link" href="Certificado%20Excel%20Evolution%20-%20Avançado.pdf" target="_blank" rel="noopener">Abrir certificado</a>
+      </div>
+      <div class="card">
+        <h3>Power BI Evolution - Avançado</h3>
+        <p>Modelagem em camadas, DAX avançado e storytelling com dashboards focados em decisão.</p>
+        <a class="cert-link" href="Power%20BI%20Evolution%20-%20Avançado.pdf" target="_blank" rel="noopener">Abrir certificado</a>
+      </div>
+      <div class="card">
+        <h3>Diploma Uni 9</h3>
+        <p>Formação universitária concluída pela Uni 9, reforçando base acadêmica e visão multidisciplinar.</p>
+        <a class="cert-link" href="Diploma%20uni%209.pdf" target="_blank" rel="noopener">Abrir diploma</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h3>Stack de trabalho</h3>
+        <div class="pill">SQL Server / MySQL</div>
+        <div class="pill">Power BI</div>
+        <div class="pill">Excel avançado</div>
+        <div class="pill">Power Query</div>
+        <div class="pill">DAX</div>
+        <div class="pill">ETL leve</div>
+        <div class="pill">Documentação clara</div>
+      </div>
+      <div class="card">
+        <h3>Entrega típica</h3>
+        <p>Dashboard em Power BI com dados limpos em SQL/Power Query, KPIs definidos em conjunto e manual executivo curto para orientar decisões.</p>
+        <p class="footnote">Prazos e escopo ajustados no início do projeto para garantir previsibilidade.</p>
+      </div>
+      <div class="card">
+        <h3>Próximos passos</h3>
+        <p>Disponível para projetos de BI, otimização de relatórios e treinamento em SQL, Excel e Power BI.</p>
+        <div class="cta-row">
+          <a class="btn" href="mailto:seuemail@exemplo.com">Agendar conversa</a>
+        </div>
+      </div>
+    </section>
+    <section id="contato" class="contact contact-card">
+      <h3>Pronto para o próximo painel?</h3>
+      <p>Conte sua necessidade (vendas, financeiro, operações ou treinamento). Respondo com proposta e cronograma rápido.</p>
+      <div class="cta-row">
+        <a class="btn accent" href="mailto:seuemail@exemplo.com">Falar com Ricardo</a>
+        <a class="btn" href="#projetos">Ver projetos</a>
+      </div>
+    </section>
+    <div class="footer">Portfólio de Ricardo Tenório · Dados e BI · Links de certificados acima</div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const revealables = document.querySelectorAll('.hero, .card, .project-card, .contact-card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealables.forEach((el, index) => {
+        el.classList.add('reveal');
+        el.style.setProperty('--reveal-delay', `${index * 80}ms`);
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>
