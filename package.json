@@ -1,0 +1,17 @@
+{
+  "name": "portifolio-ricardo",
+  "version": "1.0.0",
+  "description": "Portfólio de Ricardo Tenório",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "Ricardo Tenório",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
